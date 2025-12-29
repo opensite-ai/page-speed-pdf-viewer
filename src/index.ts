@@ -1,3 +1,5 @@
+"use client";
+
 export { PDFViewer } from './components/PDFViewer';
 export { PDFCanvas } from './components/PDFCanvas';
 export { PDFControls } from './components/PDFControls';

@@ -1,26 +1,37 @@
-import { useState, useEffect } from 'react';
-import * as pdfjsLib from 'pdfjs-dist';
+import { useState, useEffect, useRef } from 'react';
 import { PDFDocument, PDFMetadata } from '../types';
 
-// Set up PDF.js worker
-if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
-}
+// We use dynamic import for pdfjs-dist to avoid bundling the canvas dependency
+// during server-side builds. The canvas package is a native Node.js module that
+// pdfjs-dist optionally uses for server-side rendering, but it can't be bundled
+// for the browser and causes build errors in Next.js/webpack environments.
+// By using dynamic import, we ensure pdfjs-dist is only loaded on the client.
 
 export function usePDFDocument(url: string, onError?: (error: Error) => void) {
   const [document, setDocument] = useState<PDFDocument | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [pdfDoc, setPdfDoc] = useState<any>(null);
+  const pdfjsInitialized = useRef(false);
 
   useEffect(() => {
     if (!url) return;
+    if (typeof window === 'undefined') return; // Skip on server
 
     setLoading(true);
     setError(null);
 
     const loadPDF = async () => {
       try {
+        // Dynamically import pdfjs-dist to avoid SSR/build issues with canvas
+        const pdfjsLib = await import('pdfjs-dist');
+        
+        // Set up PDF.js worker only once
+        if (!pdfjsInitialized.current) {
+          pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+          pdfjsInitialized.current = true;
+        }
+
         const loadingTask = pdfjsLib.getDocument({
           url,
           withCredentials: true,
