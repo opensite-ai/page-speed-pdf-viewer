@@ -1,6 +1,6 @@
 {
   "name": "@page-speed/pdf-viewer",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "High-performance PDF viewer for restaurant menus, catalogs, and documents",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -38,8 +38,8 @@
     }
   },
   "scripts": {
-    "build": "pnpm run build:esm && pnpm run build:cjs",
-    "build:esm": "esbuild src/index.ts --bundle --platform=browser --format=esm --outfile=dist/index.js --external:pdfjs-dist --external:react --external:react-dom",
+    "build": "tsc --emitDeclarationOnly && pnpm run build:esm && pnpm run build:cjs",
+    "build:esm": "esbuild src/index.ts src/hooks/index.ts src/components/index.ts src/utils/index.ts --bundle --platform=browser --format=esm --outdir=dist --outbase=src --external:pdfjs-dist --external:react --external:react-dom",
     "build:cjs": "esbuild src/index.ts --bundle --platform=browser --format=cjs --outfile=dist/index.cjs --external:pdfjs-dist --external:react --external:react-dom",
     "bundle-analyze": "esbuild src/index.ts --bundle --analyze --outfile=/dev/null --external:pdfjs-dist --external:react --external:react-dom",
     "test": "jest",
