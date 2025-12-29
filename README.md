@@ -4,8 +4,6 @@
 
 High-performance, linearized PDF viewer for React applications.
 
-Perfect for restaurant menus, catalogs, documents, and more.
-
 ## Features
 
 - ⚡ Sub-1-second page rendering
@@ -17,6 +15,8 @@ Perfect for restaurant menus, catalogs, documents, and more.
 - 💾 Download & print support
 - 🎨 Customizable controls
 - 🚀 <30 KB base bundle (target)
+
+![Fastest React PDF Viewer Library](https://cdn.ing/assets/i/r/286340/0sc8eh9dfjvzudvn26e6ca94uhnm/react-page-speed-lightbox-7xs.gif)
 
 ## Installation
 
