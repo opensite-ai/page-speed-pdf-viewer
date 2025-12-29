@@ -1,6 +1,6 @@
 {
   "name": "@page-speed/pdf-viewer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "High-performance PDF viewer for restaurant menus, catalogs, and documents",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -12,20 +12,23 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./hooks": {
-      "import": "./dist/hooks/index.js",
-      "types": "./dist/hooks/index.d.ts"
+      "import": "./dist/hooks/index.js"
     },
     "./components": {
-      "import": "./dist/components/index.js",
-      "types": "./dist/components/index.d.ts"
+      "import": "./dist/components/index.js"
     },
     "./utils": {
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts"
+      "import": "./dist/utils/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "hooks": ["./dist/hooks/index.d.ts"],
+      "components": ["./dist/components/index.d.ts"],
+      "utils": ["./dist/utils/index.d.ts"]
     }
   },
   "scripts": {
@@ -61,7 +64,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/opensite-ai/page-speed-pdf-viewer"
+    "url": "git+https://github.com/opensite-ai/page-speed-pdf-viewer.git"
   },
   "bugs": {
     "url": "https://github.com/opensite-ai/page-speed-pdf-viewer/issues"
