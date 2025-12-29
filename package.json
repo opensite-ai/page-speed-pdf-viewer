@@ -1,6 +1,6 @@
 {
   "name": "@page-speed/pdf-viewer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "High-performance PDF viewer for restaurant menus, catalogs, and documents",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
