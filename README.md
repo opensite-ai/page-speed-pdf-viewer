@@ -1,4 +1,6 @@
-# @page-speed/pdf-viewer
+![Page Speed React PDF Viewer](https://octane.cdn.ing/api/v1/images/transform?url=https://cdn.ing/assets/i/r/286337/h3vwbeyh65fdlkwlsda1lagvadov/github.png&q=90)
+
+# 📑 @page-speed/pdf-viewer
 
 High-performance, linearized PDF viewer for React applications.
 
