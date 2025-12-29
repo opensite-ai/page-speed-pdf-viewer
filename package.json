@@ -1,0 +1,70 @@
+{
+  "name": "@page-speed/pdf-viewer",
+  "version": "0.0.1",
+  "description": "High-performance PDF viewer for restaurant menus, catalogs, and documents",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks/index.js",
+      "types": "./dist/hooks/index.d.ts"
+    },
+    "./components": {
+      "import": "./dist/components/index.js",
+      "types": "./dist/components/index.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "pnpm run build:esm && pnpm run build:cjs",
+    "build:esm": "esbuild src/index.ts --bundle --platform=browser --format=esm --outfile=dist/index.js --external:pdfjs-dist --external:react --external:react-dom",
+    "build:cjs": "esbuild src/index.ts --bundle --platform=browser --format=cjs --outfile=dist/index.cjs --external:pdfjs-dist --external:react --external:react-dom",
+    "bundle-analyze": "esbuild src/index.ts --bundle --analyze --outfile=/dev/null --external:pdfjs-dist --external:react --external:react-dom",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
+    "prepare": "pnpm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^3.11.174"
+  },
+  "keywords": [
+    "pdf",
+    "viewer",
+    "react",
+    "restaurant",
+    "menu",
+    "catalog",
+    "document"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opensite-ai/page-speed-pdf-viewer"
+  },
+  "bugs": {
+    "url": "https://github.com/opensite-ai/page-speed-pdf-viewer/issues"
+  },
+  "license": "MIT"
+}
