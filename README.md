@@ -16,7 +16,8 @@ High-performance, linearized PDF viewer for React applications.
 - 🎨 Customizable controls
 - 🚀 <30 KB base bundle (target)
 
-![Fastest React PDF Viewer Library](https://cdn.ing/assets/i/r/286340/0sc8eh9dfjvzudvn26e6ca94uhnm/react-page-speed-lightbox-7xs.gif)
+![react-page-speed-lightbox-7xs](https://github.com/user-attachments/assets/e37fc7db-c8fa-405d-b97f-37243415e3f7)
+
 
 ## Installation
 
