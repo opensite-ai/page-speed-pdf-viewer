@@ -16,15 +16,6 @@ High-performance, linearized PDF viewer for React applications.
 - 🎨 Customizable controls
 - 🚀 <30 KB base bundle (target)
 
-![react-page-speed-lightbox-7xs](https://github.com/user-attachments/assets/e37fc7db-c8fa-405d-b97f-37243415e3f7)
-
-
-## Professionally Designed Layout Variants Available by Default
-
-<div align="center">
-  <img src="https://cdn.ing/assets/i/r/286341/a1durq3wfxx3jjoj533zt9rm219z/react-page-speed-lightbox.gif" alt="ShadCN and Tailwind Lightbox Library" style="border-radius:24px;">
-</div>
-
 
 ## Installation
 
