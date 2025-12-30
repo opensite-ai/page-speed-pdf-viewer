@@ -11,16 +11,28 @@
   "sideEffects": false,
   "exports": {
     ".": {
+      "react-server": "./dist/server-stub.js",
+      "edge-light": "./dist/server-stub.js",
+      "node": "./dist/server-stub.js",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
     "./hooks": {
+      "react-server": "./dist/server-stub.js",
+      "edge-light": "./dist/server-stub.js",
+      "node": "./dist/server-stub.js",
       "import": "./dist/hooks/index.js"
     },
     "./components": {
+      "react-server": "./dist/server-stub.js",
+      "edge-light": "./dist/server-stub.js",
+      "node": "./dist/server-stub.js",
       "import": "./dist/components/index.js"
     },
     "./utils": {
+      "react-server": "./dist/server-stub.js",
+      "edge-light": "./dist/server-stub.js",
+      "node": "./dist/server-stub.js",
       "import": "./dist/utils/index.js"
     }
   },
@@ -38,9 +50,10 @@
     }
   },
   "scripts": {
-    "build": "tsc --emitDeclarationOnly && pnpm run build:esm && pnpm run build:cjs",
+    "build": "tsc --emitDeclarationOnly && pnpm run build:esm && pnpm run build:cjs && pnpm run build:server-stub",
     "build:esm": "esbuild src/index.ts src/hooks/index.ts src/components/index.ts src/utils/index.ts --bundle --platform=browser --format=esm --outdir=dist --outbase=src --external:pdfjs-dist --external:react --external:react-dom",
     "build:cjs": "esbuild src/index.ts --bundle --platform=browser --format=cjs --outfile=dist/index.cjs --external:pdfjs-dist --external:react --external:react-dom",
+    "build:server-stub": "esbuild src/server-stub.ts --bundle --platform=neutral --format=esm --outfile=dist/server-stub.js --external:react --external:react-dom",
     "bundle-analyze": "esbuild src/index.ts --bundle --analyze --outfile=/dev/null --external:pdfjs-dist --external:react --external:react-dom",
     "test": "jest",
     "test:watch": "jest --watch",
