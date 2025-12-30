@@ -1,6 +1,7 @@
 import React from 'react';
 import { PDFDocument } from '../types';
-import styles from '../styles/PDFViewer.module.css';
+import { downloadPDF } from '../utils/pdfHelpers';
+import { pdfViewerStyles as styles } from '../styles/injectStyles';
 
 interface PDFControlsProps {
   pageState: any;
@@ -93,9 +94,13 @@ export function PDFControls({
 
       {/* Actions */}
       {enableDownload && (
-        <a href={url} download className={styles.button} title="Download">
+        <button
+          onClick={() => downloadPDF(url)}
+          className={styles.button}
+          title="Download"
+        >
           Download
-        </a>
+        </button>
       )}
 
       {enablePrint && (

@@ -16,12 +16,46 @@ export async function isLinearizedPDF(url: string): Promise<boolean> {
 }
 
 /**
+ * Extract filename from URL, ensuring it has a .pdf extension
+ */
+export function extractPDFFilename(url: string, fallbackName?: string): string {
+  try {
+    const urlObj = new URL(url, window.location.origin);
+    const pathname = urlObj.pathname;
+    const segments = pathname.split('/').filter(Boolean);
+    const lastSegment = segments[segments.length - 1] || '';
+    
+    // If the URL has a filename with extension
+    if (lastSegment && lastSegment.includes('.')) {
+      // If it already ends with .pdf, use it as-is
+      if (lastSegment.toLowerCase().endsWith('.pdf')) {
+        return lastSegment;
+      }
+      // Otherwise, replace the extension with .pdf
+      const nameWithoutExt = lastSegment.substring(0, lastSegment.lastIndexOf('.'));
+      return `${nameWithoutExt}.pdf`;
+    }
+    
+    // If no extension in URL, use the last segment or fallback with .pdf
+    if (lastSegment) {
+      return `${lastSegment}.pdf`;
+    }
+  } catch {
+    // URL parsing failed, use fallback
+  }
+  
+  // Use fallback name, ensuring .pdf extension
+  const name = fallbackName || 'document';
+  return name.toLowerCase().endsWith('.pdf') ? name : `${name}.pdf`;
+}
+
+/**
  * Download PDF file
  */
 export function downloadPDF(url: string, filename?: string) {
   const link = document.createElement('a');
   link.href = url;
-  link.download = filename || 'document.pdf';
+  link.download = filename || extractPDFFilename(url);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
