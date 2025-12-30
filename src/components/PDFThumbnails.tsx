@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { pdfViewerStyles as styles } from '../styles/injectStyles';
+import { cn } from '../lib/utils';
 
 interface PDFThumbnailsProps {
   pdfDoc: any;
@@ -56,14 +56,28 @@ export function PDFThumbnails({
   }, [pdfDoc, numPages]);
 
   return (
-    <div className={styles.thumbnails}>
+    <div 
+      className={cn(
+        "w-32 flex-shrink-0",
+        "overflow-y-auto",
+        "bg-muted/50 border-r border-border",
+        "p-2 space-y-2"
+      )}
+      data-pdf-viewer="thumbnails"
+    >
       {thumbnails.map((thumb, idx) => (
         <div
           key={idx}
-          className={`${styles.thumbnail} ${
-            idx + 1 === currentPage ? styles.active : ''
-          }`}
+          className={cn(
+            "cursor-pointer rounded-md overflow-hidden",
+            "border-2 transition-colors duration-150",
+            idx + 1 === currentPage 
+              ? "border-primary ring-2 ring-primary/20" 
+              : "border-transparent hover:border-muted-foreground/30"
+          )}
           onClick={() => onSelectPage(idx + 1)}
+          data-pdf-viewer="thumbnail"
+          data-active={idx + 1 === currentPage}
         >
           <canvas
             width={thumb.width}
@@ -76,8 +90,15 @@ export function PDFThumbnails({
                 }
               }
             }}
+            className="w-full h-auto"
           />
-          <span className={styles.pageNumber}>{idx + 1}</span>
+          <span className={cn(
+            "block text-center text-xs py-1",
+            "text-muted-foreground",
+            idx + 1 === currentPage && "text-primary font-medium"
+          )}>
+            {idx + 1}
+          </span>
         </div>
       ))}
     </div>

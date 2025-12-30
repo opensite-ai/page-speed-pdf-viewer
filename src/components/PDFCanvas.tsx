@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { pdfViewerStyles as styles } from '../styles/injectStyles';
+import { cn } from '../lib/utils';
 
 interface PDFCanvasProps {
   pdfDoc: any;
@@ -35,6 +35,16 @@ export function PDFCanvas({
     }
   }, [pdfDoc, pageNumber, scale, onRender]);
 
-  return <div ref={containerRef} className={styles.canvas} />;
+  return (
+    <div 
+      ref={containerRef} 
+      className={cn(
+        "flex-1 overflow-auto",
+        "flex items-center justify-center",
+        "p-4 min-h-0"
+      )}
+      data-pdf-viewer="canvas"
+    />
+  );
 }
 
