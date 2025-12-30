@@ -7,7 +7,11 @@ import { PDFDocument, PDFMetadata } from '../types';
 // for the browser and causes build errors in Next.js/webpack environments.
 // By using dynamic import, we ensure pdfjs-dist is only loaded on the client.
 
-export function usePDFDocument(url: string, onError?: (error: Error) => void) {
+export function usePDFDocument(
+  url: string,
+  onError?: (error: Error) => void,
+  withCredentials: boolean = false
+) {
   const [document, setDocument] = useState<PDFDocument | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -34,7 +38,7 @@ export function usePDFDocument(url: string, onError?: (error: Error) => void) {
 
         const loadingTask = pdfjsLib.getDocument({
           url,
-          withCredentials: true,
+          withCredentials,
           rangeChunkSize: 65536, // For linearized PDFs
         });
 
@@ -70,7 +74,7 @@ export function usePDFDocument(url: string, onError?: (error: Error) => void) {
     };
 
     loadPDF();
-  }, [url, onError]);
+  }, [url, onError, withCredentials]);
 
   return { document, pdfDoc, loading, error };
 }

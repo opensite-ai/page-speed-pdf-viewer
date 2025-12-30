@@ -32,9 +32,10 @@ export function PDFViewer({
     enableFullscreen = true,
     initialPage = 1,
     initialZoom = 'auto',
+    withCredentials = false,
   } = config;
 
-  const { document, pdfDoc, loading, error } = usePDFDocument(url, onError);
+  const { document, pdfDoc, loading, error } = usePDFDocument(url, onError, withCredentials);
   const pageState = usePageState({
     totalPages: document?.numPages || 0,
     initialPage,
