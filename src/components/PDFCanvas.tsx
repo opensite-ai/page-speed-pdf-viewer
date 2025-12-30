@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from '../styles/PDFViewer.module.css';
+import { pdfViewerStyles as styles } from '../styles/injectStyles';
 
 interface PDFCanvasProps {
   pdfDoc: any;

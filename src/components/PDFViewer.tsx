@@ -8,7 +8,7 @@ import { useSearch } from '../hooks/useSearch';
 import { PDFCanvas } from './PDFCanvas';
 import { PDFControls } from './PDFControls';
 import { PDFThumbnails } from './PDFThumbnails';
-import styles from '../styles/PDFViewer.module.css';
+import { injectPDFViewerStyles, pdfViewerStyles as styles } from '../styles/injectStyles';
 
 export function PDFViewer({
   url,
@@ -34,6 +34,11 @@ export function PDFViewer({
     initialZoom = 'auto',
     withCredentials = false,
   } = config;
+
+  // Inject styles on mount
+  useEffect(() => {
+    injectPDFViewerStyles();
+  }, []);
 
   const { document, pdfDoc, loading, error } = usePDFDocument(url, onError, withCredentials);
   const pageState = usePageState({

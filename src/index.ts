@@ -15,6 +15,11 @@ export {
 
 export * from './utils';
 
+export {
+  injectPDFViewerStyles,
+  pdfViewerStyles,
+} from './styles/injectStyles';
+
 export type {
   PDFViewerConfig,
   PDFViewerProps,
