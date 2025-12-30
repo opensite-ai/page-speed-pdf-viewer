@@ -39,6 +39,16 @@ export interface PDFViewerConfig {
 
   /** Enable progressive loading for linearized PDFs */
   progressiveLoading?: boolean;
+
+  /**
+   * Include credentials (cookies) in cross-origin PDF requests.
+   * Default: false (safe for public CDN-hosted PDFs)
+   * 
+   * Set to true only if your PDF endpoint requires authentication via cookies.
+   * Note: When true, the server must return a specific origin in Access-Control-Allow-Origin
+   * (not wildcard '*') and include Access-Control-Allow-Credentials: true.
+   */
+  withCredentials?: boolean;
 }
 
 /**
