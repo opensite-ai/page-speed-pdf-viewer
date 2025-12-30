@@ -25,6 +25,15 @@ export function PDFCanvas({
         while (containerRef.current.firstChild) {
           containerRef.current.removeChild(containerRef.current.firstChild);
         }
+        
+        // Apply contain-like styling to the canvas so it fits within the container
+        // without being cropped. This ensures the full page is visible.
+        renderedCanvas.style.maxWidth = '100%';
+        renderedCanvas.style.maxHeight = '100%';
+        renderedCanvas.style.width = 'auto';
+        renderedCanvas.style.height = 'auto';
+        renderedCanvas.style.objectFit = 'contain';
+        
         containerRef.current.appendChild(renderedCanvas);
         setCanvas(renderedCanvas);
       }
