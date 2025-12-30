@@ -8,7 +8,7 @@ import { useSearch } from '../hooks/useSearch';
 import { PDFCanvas } from './PDFCanvas';
 import { PDFControls } from './PDFControls';
 import { PDFThumbnails } from './PDFThumbnails';
-import { injectPDFViewerStyles, pdfViewerStyles as styles } from '../styles/injectStyles';
+import { cn } from '../lib/utils';
 
 export function PDFViewer({
   url,
@@ -34,11 +34,6 @@ export function PDFViewer({
     initialZoom = 'auto',
     withCredentials = false,
   } = config;
-
-  // Inject styles on mount
-  useEffect(() => {
-    injectPDFViewerStyles();
-  }, []);
 
   const { document, pdfDoc, loading, error } = usePDFDocument(url, onError, withCredentials);
   const pageState = usePageState({
@@ -67,24 +62,45 @@ export function PDFViewer({
 
   if (error) {
     return (
-      <div className={styles.error} style={{ height, width }}>
-        <p>Failed to load PDF: {error.message}</p>
+      <div 
+        className={cn(
+          "flex items-center justify-center",
+          "bg-background rounded-lg",
+          className
+        )}
+        style={{ height, width }}
+      >
+        <p className="text-destructive text-base">Failed to load PDF: {error.message}</p>
       </div>
     );
   }
 
   if (loading) {
     return (
-      <div className={styles.loading} style={{ height, width }}>
-        <p>Loading PDF...</p>
+      <div 
+        className={cn(
+          "flex items-center justify-center",
+          "bg-background rounded-lg",
+          className
+        )}
+        style={{ height, width }}
+      >
+        <p className="text-muted-foreground text-base">Loading PDF...</p>
       </div>
     );
   }
 
   return (
     <div
-      className={`${styles.viewer} ${className || ''}`}
+      className={cn(
+        "flex flex-col",
+        "bg-muted/30 rounded-lg overflow-hidden",
+        "shadow-sm border border-border",
+        "font-sans",
+        className
+      )}
       style={{ height, width, ...style }}
+      data-pdf-viewer="root"
     >
       {showControls && (
         <PDFControls
@@ -99,7 +115,7 @@ export function PDFViewer({
         />
       )}
 
-      <div className={styles.content}>
+      <div className="flex flex-1 overflow-hidden min-h-0" data-pdf-viewer="content">
         {showThumbnails && document && (
           <PDFThumbnails
             pdfDoc={pdfDoc}
