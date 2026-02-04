@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
-import { PDFDocument, PDFMetadata } from '../types';
+import { useState, useEffect, useRef } from "react";
+import { PDFDocument } from "../types";
 
 // We use dynamic import for pdfjs-dist to avoid bundling the canvas dependency
 // during server-side builds. The canvas package is a native Node.js module that
@@ -10,7 +10,7 @@ import { PDFDocument, PDFMetadata } from '../types';
 export function usePDFDocument(
   url: string,
   onError?: (error: Error) => void,
-  withCredentials: boolean = false
+  withCredentials: boolean = false,
 ) {
   const [document, setDocument] = useState<PDFDocument | null>(null);
   const [loading, setLoading] = useState(true);
@@ -20,7 +20,7 @@ export function usePDFDocument(
 
   useEffect(() => {
     if (!url) return;
-    if (typeof window === 'undefined') return; // Skip on server
+    if (typeof window === "undefined") return; // Skip on server
 
     setLoading(true);
     setError(null);
@@ -28,8 +28,8 @@ export function usePDFDocument(
     const loadPDF = async () => {
       try {
         // Dynamically import pdfjs-dist to avoid SSR/build issues with canvas
-        const pdfjsLib = await import('pdfjs-dist');
-        
+        const pdfjsLib = await import("pdfjs-dist");
+
         // Set up PDF.js worker only once
         if (!pdfjsInitialized.current) {
           pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
@@ -52,7 +52,8 @@ export function usePDFDocument(
 
         setDocument({
           numPages: pdf.numPages,
-          fingerprint: (pdf as any).fingerprint || (pdf as any).fingerprints?.[0] || '',
+          fingerprint:
+            (pdf as any).fingerprint || (pdf as any).fingerprints?.[0] || "",
           metadata: {
             title: info.Title,
             author: info.Author,
@@ -65,7 +66,8 @@ export function usePDFDocument(
           isEncrypted: !!(pdf as any).isEncrypted,
         });
       } catch (err) {
-        const error = err instanceof Error ? err : new Error('Failed to load PDF');
+        const error =
+          err instanceof Error ? err : new Error("Failed to load PDF");
         setError(error);
         onError?.(error);
       } finally {
@@ -78,4 +80,3 @@ export function usePDFDocument(
 
   return { document, pdfDoc, loading, error };
 }
-

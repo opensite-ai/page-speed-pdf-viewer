@@ -1,6 +1,6 @@
 {
   "name": "@page-speed/pdf-viewer",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "High-performance PDF viewer for restaurant menus, catalogs, and documents",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -70,7 +70,7 @@
     "react-dom": "^18.0.0"
   },
   "dependencies": {
-    "pdfjs-dist": "^3.11.174"
+    "pdfjs-dist": "^4.2.67"
   },
   "keywords": [
     "pdf",
